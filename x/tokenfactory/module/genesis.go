@@ -9,6 +9,10 @@ import (
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
+	// Set all the denom
+	for _, elem := range genState.DenomList {
+		k.SetDenom(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	if err := k.Params.Set(ctx, genState.Params); err != nil {
 		panic(err)
@@ -25,6 +29,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		panic(err)
 	}
 
+	genesis.DenomList = k.GetAllDenom(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
