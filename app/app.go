@@ -76,6 +76,7 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
 	"tokenfactory/docs"
+	tokenfactorymodulekeeper "tokenfactory/x/tokenfactory/keeper"
 )
 
 const (
@@ -137,6 +138,7 @@ type App struct {
 	ScopedICAControllerKeeper capabilitykeeper.ScopedKeeper
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 
+	TokenfactoryKeeper tokenfactorymodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -275,6 +277,7 @@ func New(
 		&app.NFTKeeper,
 		&app.GroupKeeper,
 		&app.CircuitBreakerKeeper,
+		&app.TokenfactoryKeeper,
 	); err != nil {
 		panic(err)
 	}
